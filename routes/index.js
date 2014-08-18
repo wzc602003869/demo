@@ -8,7 +8,15 @@ var crypto = require('crypto'),
     fs = require('fs');
 module.exports = function(app) {
     app.get('/', function (req, res) {
-        Post.get(req.session.user.name, function (err, posts) {
+        console.log(req.session);
+        //console.log(!req.session.user.name);
+        var tt;
+        if(req.session.user==null){
+            tt = null;
+        }else{
+            tt = req.session.user.name;
+        }
+        Post.get(tt, function (err, posts) {
             if (err) {
                 posts = [];
             }

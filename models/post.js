@@ -28,6 +28,7 @@ Post.prototype.save = function(callback){
                 callback(err)}
             console.log("SUCCESS"+res);
             callback(null);
+            conn.release();
         })
     })
 };
@@ -55,6 +56,7 @@ Post.get = function(name,callback){
                 post.post = markdown.toHTML(post.post);
             })
             callback(null,posts);
+            conn.release();
         })
     })
 }
@@ -76,6 +78,7 @@ Post.getOne = function(name,day,title,callback){
             post.post = rows[0].post;
             post.post = markdown.toHTML(post.post);
             callback(null,post);
+            conn.release();
         })
     })
 }
@@ -97,6 +100,7 @@ Post.edit = function(name,day,title,callback){
             post.post = rows[0].post;
            // post.post = markdown.toHTML(post.post);
             callback(null,post);
+            conn.release();
         })
     })
 }
@@ -121,6 +125,7 @@ Post.update = function(name,day,title,post,callback){
                 callback(err)}
             console.log("SUCCESS"+res);
             callback(null);
+            conn.release();
         })
     })
 }
@@ -132,7 +137,7 @@ Post.remove = function(name,day,title,callback){
             if(err){console.log("QUERY"+err);
             callback(err)}else{console.log("SUCCESS"+res);
                 callback(null);}
-
+            conn.release();
         })
     })
 }
