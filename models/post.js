@@ -48,7 +48,7 @@ Post.get = function(name,callback){
                 var post = {};
                 post.name = rows[i].name;
                 post.title = rows[i].title;
-                post.time = eval('('+rows[i].time+')');
+                post.time =  JSON.parse(rows[i].time);//eval('('+rows[i].time+')');
                 post.post = rows[i].post;
                 posts.push(post);
             }
@@ -74,9 +74,12 @@ Post.getOne = function(name,day,title,callback){
             var post = {};
             post.name = rows[0].name;
             post.title = rows[0].title;
-            post.time = eval('('+rows[0].time+')');
+            post.time =  JSON.parse(rows[0].time);
             post.post = rows[0].post;
             post.post = markdown.toHTML(post.post);
+            console.log(rows[0].comments);
+            post.comments = JSON.parse(rows[0].comments);
+            console.log(post.comments);
             callback(null,post);
             conn.release();
         })
@@ -96,7 +99,7 @@ Post.edit = function(name,day,title,callback){
             var post = {};
             post.name = rows[0].name;
             post.title = rows[0].title;
-            post.time = eval('('+rows[0].time+')');
+            post.time =  JSON.parse(rows[i].time);
             post.post = rows[0].post;
            // post.post = markdown.toHTML(post.post);
             callback(null,post);
